@@ -1,0 +1,114 @@
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\href{#1}{#1}}
+\providecommand{\dodoi}[1]{doi:~\href{http://doi.org/#1}{\nolinkurl{#1}}}
+\providecommand{\doeprint}[1]{\href{http://ascl.net/#1}{\nolinkurl{http://ascl.net/#1}}}
+\providecommand{\doarXiv}[1]{\href{https://arxiv.org/abs/#1}{\nolinkurl{https://arxiv.org/abs/#1}}}
+
+% type= article
+\bibitem[{ {Astropy Collaboration} {et~al.}(2022){Astropy Collaboration},
+  {Price-Whelan}, {Lim}, {Earl}, {Starkman}, {Bradley},
+  {et~al.}}]{2022ApJ...935..167A}
+{Astropy Collaboration}, {Price-Whelan}, A.~M., {Lim}, P.~L., {et~al.} 2022,
+  \bibinfo{title}{{The Astropy Project: Sustaining and Growing a
+  Community-oriented Open-source Project and the Latest Major Release (v5.0) of
+  the Core Package},} \apj, 935, 167, \dodoi{10.3847/1538-4357/ac7c74}
+
+% type= article
+\bibitem[{ {Astropy Collaboration} {et~al.}(2018){Astropy Collaboration},
+  {Price-Whelan}, {Sipocz}, {Gunther}, {Lim}, {Crawford},
+  {et~al.}}]{2018AJ....156..123A}
+{Astropy Collaboration}, {Price-Whelan}, A.~M., {Sipocz}, B.~M., {et~al.} 2018,
+  \bibinfo{title}{{The Astropy Project: Building an Open-science Project and
+  Status of the v2.0 Core Package},} \aj, 156, 123,
+  \dodoi{10.3847/1538-3881/aabc4f}
+
+% type= article
+\bibitem[{ {Astropy Collaboration} {et~al.}(2013){Astropy Collaboration},
+  {Robitaille}, {Tollerud}, {Greenfield}, {Droettboom}, {Bray}, {Aldcroft},
+  {Davis}, {Ginsburg}, {Price-Whelan}, {Kerzendorf}, {Conley}, {Crighton},
+  {Barbary}, {Muna}, {Ferguson}, {Gommers}, {Greco}, {Greenfield}, {Jenness},
+  {Kerzendorf}, {Lim}, {Mumford}, {Nguyen}, {Oh}, {Parejko}, {Parikh}, {Perry},
+  {Persson}, {Price-Whelan}, {Sipocz}, {Starkman}, {Streicher}, {Tollerud},
+  {Vicinanza}, {Vyhmeister}, {Zabalza}, \& {Astropy
+  Contributors}}]{2013A&A...558A..33A}
+{Astropy Collaboration}, {Robitaille}, T.~P., {Tollerud}, E.~J., {et~al.} 2013,
+  \bibinfo{title}{{Astropy: A community Python package for astronomy},} \aap,
+  558, A33, \dodoi{10.1051/0004-6361/201322068}
+
+% type= article
+\bibitem[{A. {Bressan} {et~al.}(2012){Bressan}, {Marigo}, {Girardi},
+  {Salasnich}, {Dal Cero}, {Rubele}, \& {Nanni}}]{bressan2012}
+{Bressan}, A., {Marigo}, P., {Girardi}, L., {et~al.} 2012,
+  \bibinfo{title}{{PARSEC: stellar tracks and isochrones with the PAdova and
+  TRieste Stellar Evolution Code},} \mnras, 427, 127,
+  \dodoi{10.1111/j.1365-2966.2012.21948.x}
+
+% type= article
+\bibitem[{J. {Choi} {et~al.}(2016){Choi}, {Dotter}, {Conroy}, {Cantiello},
+  {Paxton}, \& {Johnson}}]{choi2016}
+{Choi}, J., {Dotter}, A., {Conroy}, C., {et~al.} 2016, \bibinfo{title}{{Mesa
+  Isochrones and Stellar Tracks (MIST). I. Solar-scaled Models},} \apj, 823,
+  102, \dodoi{10.3847/0004-637X/823/2/102}
+
+% type= article
+\bibitem[{G. {Duch{\^e}ne} \& A. {Kraus}(2013){Duch{\^e}ne} \&
+  {Kraus}}]{duchene2013}
+{Duch{\^e}ne}, G., \& {Kraus}, A. 2013, \bibinfo{title}{{Stellar
+  Multiplicity},} \araa, 51, 269, \dodoi{10.1146/annurev-astro-081710-102602}
+
+% type= article
+\bibitem[{D. {Foreman-Mackey} {et~al.}(2013){Foreman-Mackey}, {Hogg}, {Lang},
+  \& {Goodman}}]{2013PASP..125..306F}
+{Foreman-Mackey}, D., {Hogg}, D.~W., {Lang}, D., \& {Goodman}, J. 2013,
+  \bibinfo{title}{{emcee: The MCMC Hammer},} \pasp, 125, 306,
+  \dodoi{10.1086/670067}
+
+% type= article
+\bibitem[{C.~R. {Harris} {et~al.}(2020){Harris}, {Millman}, {van der Walt},
+  {Gommers}, {Virtanen}, {et~al.}}]{2020Natur.585..357H}
+{Harris}, C.~R., {Millman}, K.~J., {van der Walt}, S.~J., {et~al.} 2020,
+  \bibinfo{title}{{Array programming with NumPy},} Nature, 585, 357,
+  \dodoi{10.1038/s41586-020-2649-2}
+
+% type= article
+\bibitem[{T.~J. {Henry} \& J. {McCarthy}(2004){Henry} \&
+  {McCarthy}}]{henry2004}
+{Henry}, T.~J., \& {McCarthy}, D.~W., J. 2004, \bibinfo{title}{{The
+  Mass-Luminosity Relation for Stars of Mass 1.0 to 0.08 M$_{\odot}$},} \aj,
+  106, 773, \dodoi{10.1086/116685}
+
+% type= book
+\bibitem[{S.~B. {Howell}(2006){Howell}}]{howell2006}
+{Howell}, S.~B. 2006, {Handbook of CCD Astronomy} (Cambridge University Press)
+
+% type= article
+\bibitem[{J.~D. {Hunter}(2007){Hunter}}]{2007CSE.....9...90H}
+{Hunter}, J.~D. 2007, \bibinfo{title}{{Matplotlib: A 2D Graphics Environment},}
+  Computing in Science and Engineering, 9, 90, \dodoi{10.1109/MCSE.2007.55}
+
+% type= article
+\bibitem[{P. {Kroupa}(2001){Kroupa}}]{kroupa2001}
+{Kroupa}, P. 2001, \bibinfo{title}{{On the variation of the initial mass
+  function},} \mnras, 322, 231, \dodoi{10.1046/j.1365-8711.2001.04022.x}
+
+% type= article
+\bibitem[{H.~C. {Plummer}(1911){Plummer}}]{plummer1911}
+{Plummer}, H.~C. 1911, \bibinfo{title}{{On the problem of distribution in
+  globular star clusters},} MNRAS, 71, 460, \dodoi{10.1093/mnras/71.5.460}
+
+% type= article
+\bibitem[{D. {Raghavan} {et~al.}(2010){Raghavan}, {McAlister}, {Henry},
+  {Latham}, {Marcy}, {et~al.}}]{raghavan2010}
+{Raghavan}, D., {McAlister}, H.~A., {Henry}, T.~J., {et~al.} 2010,
+  \bibinfo{title}{{A Survey of Stellar Families: Multiplicity of Solar-type
+  Stars},} \apjs, 190, 1, \dodoi{10.1088/0067-0049/190/1/1}
+
+% type= article
+\bibitem[{P. {Virtanen} {et~al.}(2020){Virtanen}, {Gommers}, {Oliphant},
+  {Haberland}, {Reddy}, {et~al.}}]{2020NatMe..17..261V}
+{Virtanen}, P., {Gommers}, R., {Oliphant}, T.~E., {et~al.} 2020,
+  \bibinfo{title}{{SciPy 1.0: fundamental algorithms for scientific computing
+  in Python},} Nature Methods, 17, 261, \dodoi{10.1038/s41592-019-0686-2}
+
+\end{thebibliography}
