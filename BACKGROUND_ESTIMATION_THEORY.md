@@ -373,31 +373,6 @@ Create 3-panel figure:
 
 If you want to keep methodology focused on stellar analysis, background could go in Section 3 as first subsection before "Source Detection". This might flow better since it's part of the pipeline.
 
----
-
-## 11. Key Takeaways
-
-**For your understanding:**
-- Background estimation is not trivial - it's a fundamental step
-- 2D meshing captures spatial variations that global methods miss
-- Sigma clipping removes stellar contamination robustly
-- Background errors propagate to photometry, especially for faint stars
-- Our implementation is standard, well-tested approach
-
-**For the paper:**
-- This should definitely be documented (currently missing!)
-- Shows methodological rigor
-- Demonstrates understanding of systematic effects
-- Only ~1 page of additional text needed
-
-**For your analysis:**
-- The pipeline now handles this automatically
-- You can verify results by checking background RMS matches expected Poisson noise
-- Spatial maps let you see if there are issues (e.g., scattered light from bright star)
+--
 
 ---
-
-Would you like me to:
-1. Draft the actual LaTeX text for Section 2.5?
-2. Create Python code to generate the 3-panel figure?
-3. Add more detail to any particular section above?
