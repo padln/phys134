@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.1)  10 NOV 2025 17:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.1)  12 NOV 2025 17:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -550,7 +550,7 @@ Class aastex701 Warning: Assuming \noaffiliation for authors.
 
 Package hyperref Warning: Ignoring empty anchor on input line 214.
 
-<orcid-ID.png, id=109, 220.825pt x 220.825pt>
+<orcid-ID.png, id=177, 220.825pt x 220.825pt>
 File: orcid-ID.png Graphic file (type png)
 <use orcid-ID.png>
 Package pdftex.def Info: orcid-ID.png  used on input line 214.
@@ -561,45 +561,45 @@ Package pdftex.def Info: orcid-ID.png  used on input line 214.
 (pdftex.def)             Requested size: 9.0pt x 8.99997pt.
 [1{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./orc
 id-ID.png>] [2]
-Overfull \hbox (25.73393pt too wide) detected at line 313
+Overfull \hbox (25.73393pt too wide) detected at line 330
 []\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 N[]\OMS/cmsy/m/n/10 j\OML
 /cmm/m/it/10 N[]; C\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it/10 C[]\OT1/cmr/m/n/10 (
 1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 C\OT1/cmr/m/n/10 )[][]
  []
 
-
-Overfull \hbox (48.41463pt too wide) detected at line 341
+[3]
+Overfull \hbox (48.41463pt too wide) detected at line 358
 [][] \OMS/cmsy/m/n/10 L\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^R\OT1/cmr/m/n/10 ) =
  [] [][][]
  []
 
 
-Overfull \hbox (49.10501pt too wide) detected at line 362
+Overfull \hbox (49.10501pt too wide) detected at line 379
 []\OT1/cmr/m/n/10 ^^H[](\OML/cmm/m/it/10 m[]\OT1/cmr/m/n/10 ) = ^^H[](\OML/cmm/
 m/it/10 m[]\OT1/cmr/m/n/10 ) [] []\OML/cmm/m/it/10 K\OT1/cmr/m/n/10 (\OML/cmm/m
 /it/10 m; m[]\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 dm[]
  []
 
-[3]
-Overfull \hbox (20.71286pt too wide) detected at line 374
+
+Overfull \hbox (20.71286pt too wide) detected at line 391
 []\OML/cmm/m/it/10 d[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ) = []
  [][]
  []
 
 
-Overfull \hbox (36.21893pt too wide) detected at line 396
+Overfull \hbox (36.21893pt too wide) detected at line 413
 []\OMS/cmsy/m/n/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ) = []
  [] [][]
  []
 
 [4]
-Overfull \hbox (63.9609pt too wide) detected at line 469
+Overfull \hbox (63.9609pt too wide) detected at line 486
 []\OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]\OT1/cmr/m/n/10 ) = 
 [][]
  []
 
 
-Overfull \hbox (44.61455pt too wide) detected at line 475
+Overfull \hbox (44.61455pt too wide) detected at line 492
 []\OMS/cmsy/m/n/10 h\OML/cmm/m/it/10 M\OMS/cmsy/m/n/10 i \OT1/cmr/m/n/10 = \OML
 /cmm/m/it/10 P[] \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/it/10 M\OT1/cmr/m/n/10 (\OML/c
 mm/m/it/10 m[]\OT1/cmr/m/n/10 ) + [] \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/
@@ -608,53 +608,66 @@ cmm/m/it/10 q\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 [\OML/cmm/m
 m/it/10 M[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 m[]; q\OT1/cmr/m/n/10 )][]
  []
 
-[5] [6{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1
-.enc}] (./article.bbl) [7] (./article.aux)
+[5] [6] [7{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super
+-ts1.enc}]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8] [9] [10]
+<background_panel.png, id=433, 1148.3703pt x 319.9152pt>
+File: background_panel.png Graphic file (type png)
+<use background_panel.png>
+Package pdftex.def Info: background_panel.png  used on input line 841.
+(pdftex.def)             Requested size: 487.45999pt x 135.79863pt.
+ (./article.bbl [11 <./background_panel.png>]) [12] (./article.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `article.out' has not changed.
-(rerunfilecheck)             Checksum: E200F1E0578A6FD25FC592A2CF007F94;4749.
+(rerunfilecheck)             Checksum: 2B2999D3CFC82B50CF0593DC98FF42FC;8258.
  ) 
 Here is how much of TeX's memory you used:
- 12900 strings out of 474116
- 191560 string characters out of 5743682
- 1964187 words of memory out of 5000000
- 35012 multiletter control sequences out of 15000+600000
- 569963 words of font info for 83 fonts, out of 8000000 for 9000
+ 13030 strings out of 474116
+ 193652 string characters out of 5743682
+ 1966187 words of memory out of 5000000
+ 35091 multiletter control sequences out of 15000+600000
+ 570271 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,7n,93p,1457b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,9n,93p,1457b,644s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
-/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
-/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
-/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
-ocal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/loca
-l/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/t
-exlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
-ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
-/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/20
-24/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2024
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/
-fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on article.pdf (7 pages, 351785 bytes).
+/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></u
+sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/loc
+al/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
+xlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
+ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
+2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/202
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2024/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2024/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm1000.pfb>
+Output written on article.pdf (12 pages, 2362397 bytes).
 PDF statistics:
- 411 PDF objects out of 1000 (max. 8388607)
- 352 compressed objects within 4 object streams
- 95 named destinations out of 1000 (max. 500000)
- 214 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 610 PDF objects out of 1000 (max. 8388607)
+ 534 compressed objects within 6 object streams
+ 145 named destinations out of 1000 (max. 500000)
+ 355 words of extra memory for PDF output out of 10000 (max. 10000000)
 

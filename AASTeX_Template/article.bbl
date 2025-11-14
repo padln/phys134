@@ -37,12 +37,31 @@
   558, A33, \dodoi{10.1051/0004-6361/201322068}
 
 % type= article
+\bibitem[{E. {Bertin} \& S. {Arnouts}(1996){Bertin} \& {Arnouts}}]{bertin1996}
+{Bertin}, E., \& {Arnouts}, S. 1996, \bibinfo{title}{{SExtractor: Software for
+  source extraction},} \aaps, 117, 393, \dodoi{10.1051/aas:1996164}
+
+% type= article
+\bibitem[{L. {Bradley} {et~al.}(2020){Bradley}, {Sipocz}, {Robitaille},
+  {Tollerud}, {Vinícius}, {et~al.}}]{bradley2020}
+{Bradley}, L., {Sipocz}, B., {Robitaille}, T., {et~al.} 2020,
+  \bibinfo{title}{{astropy/photutils: 1.0.0},} Zenodo,
+  \dodoi{10.5281/zenodo.4044744}
+
+% type= article
 \bibitem[{A. {Bressan} {et~al.}(2012){Bressan}, {Marigo}, {Girardi},
   {Salasnich}, {Dal Cero}, {Rubele}, \& {Nanni}}]{bressan2012}
 {Bressan}, A., {Marigo}, P., {Girardi}, L., {et~al.} 2012,
   \bibinfo{title}{{PARSEC: stellar tracks and isochrones with the PAdova and
   TRieste Stellar Evolution Code},} \mnras, 427, 127,
   \dodoi{10.1111/j.1365-2966.2012.21948.x}
+
+% type= article
+\bibitem[{A.~G.~A. {Brown} {et~al.}(2021){Brown}, {Vallenari}, {Prusti}, {de
+  Bruijne}, {Babusiaux}, {et~al.}}]{brown2021}
+{Brown}, A.~G.~A., {Vallenari}, A., {Prusti}, T., {et~al.} 2021,
+  \bibinfo{title}{{Gaia Early Data Release 3: Summary of the contents and
+  survey properties},} \aap, 649, A1, \dodoi{10.1051/0004-6361/202039657}
 
 % type= article
 \bibitem[{J. {Choi} {et~al.}(2016){Choi}, {Dotter}, {Conroy}, {Cantiello},
@@ -63,6 +82,13 @@
 {Foreman-Mackey}, D., {Hogg}, D.~W., {Lang}, D., \& {Goodman}, J. 2013,
   \bibinfo{title}{{emcee: The MCMC Hammer},} \pasp, 125, 306,
   \dodoi{10.1086/670067}
+
+% type= article
+\bibitem[{ {Gaia Collaboration} {et~al.}(2023){Gaia Collaboration},
+  {Vallenari}, {Brown}, {Prusti}, {de Bruijne}, {et~al.}}]{gaiadr3}
+{Gaia Collaboration}, {Vallenari}, A., {Brown}, A.~G.~A., {et~al.} 2023,
+  \bibinfo{title}{{Gaia Data Release 3: Summary of the content and survey
+  properties},} \aap, 674, A1, \dodoi{10.1051/0004-6361/202243940}
 
 % type= article
 \bibitem[{C.~R. {Harris} {et~al.}(2020){Harris}, {Millman}, {van der Walt},
@@ -93,6 +119,12 @@
   function},} \mnras, 322, 231, \dodoi{10.1046/j.1365-8711.2001.04022.x}
 
 % type= article
+\bibitem[{L.~B. {Lucy}(1974){Lucy}}]{lucy1974}
+{Lucy}, L.~B. 1974, \bibinfo{title}{{An iterative technique for the
+  rectification of observed distributions},} \aj, 79, 745,
+  \dodoi{10.1086/111605}
+
+% type= article
 \bibitem[{H.~C. {Plummer}(1911){Plummer}}]{plummer1911}
 {Plummer}, H.~C. 1911, \bibinfo{title}{{On the problem of distribution in
   globular star clusters},} MNRAS, 71, 460, \dodoi{10.1093/mnras/71.5.460}
@@ -103,6 +135,23 @@
 {Raghavan}, D., {McAlister}, H.~A., {Henry}, T.~J., {et~al.} 2010,
   \bibinfo{title}{{A Survey of Stellar Families: Multiplicity of Solar-type
   Stars},} \apjs, 190, 1, \dodoi{10.1088/0067-0049/190/1/1}
+
+% type= article
+\bibitem[{W.~H. {Richardson}(1972){Richardson}}]{richardson1972}
+{Richardson}, W.~H. 1972, \bibinfo{title}{{Bayesian-Based Iterative Method of
+  Image Restoration},} Journal of the Optical Society of America, 62, 55,
+  \dodoi{10.1364/JOSA.62.000055}
+
+% type= article
+\bibitem[{P.~B. {Stetson}(1987){Stetson}}]{stetson1987}
+{Stetson}, P.~B. 1987, \bibinfo{title}{{DAOPHOT - A computer program for
+  crowded-field stellar photometry},} \pasp, 99, 191, \dodoi{10.1086/131977}
+
+% type= article
+\bibitem[{P.~B. {Stetson}(1990){Stetson}}]{stetson1990}
+{Stetson}, P.~B. 1990, \bibinfo{title}{{On the Automatic Determination of
+  Light-Curve Parameters for Cepheid Variables},} \pasp, 102, 932,
+  \dodoi{10.1086/132719}
 
 % type= article
 \bibitem[{P. {Virtanen} {et~al.}(2020){Virtanen}, {Gommers}, {Oliphant},
