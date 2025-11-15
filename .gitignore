@@ -1,2 +1,24 @@
 # .gitignore
-*.md
+
+# Project status and internal documentation (not for classmates)
+.project/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Data files (too large for git)
+*.fits
+*.csv
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.toc
