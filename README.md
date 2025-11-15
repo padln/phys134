@@ -148,11 +148,11 @@ Full methodology and results are described in:
 If you use this code for your research, please cite:
 ```bibtex
 @misc{phys134l_cluster_profiles,
-  author = {[Your Name]},
+  author = {[Nathan Madsen]},
   title = {Stellar Cluster Density Profile Analysis},
-  year = {2024},
+  year = {2025},
   publisher = {GitHub},
-  url = {https://github.com/[username]/phys134}
+  url = {https://github.com/padln/phys134}
 }
 ```
 
@@ -182,10 +182,10 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 For questions about this code or methodology:
 - Open an issue on GitHub
-- Email: [your_email@ucsb.edu]
+- Email: [madsen@ucsb.edu]
 
 ---
 
 **Course**: PHYS 134L - Advanced Observational Astrophysics
 **Institution**: UC Santa Barbara
-**Term**: Fall 2024
+**Term**: Fall 2025
