@@ -67,30 +67,30 @@ PHYS 134L/
 
 ## Key Features
 
-### 🔭 Observation Planning
+### Observation Planning
 - Signal-to-noise calculations for exposure time optimization
 - Multi-band imaging strategy (SDSS g', r', i')
 - Las Cumbres Observatory 0.4m telescope specifications
 
-### 📊 Photometry Pipeline
+### Photometry Pipeline
 - 2D background estimation with sigma clipping
 - DAOStarFinder source detection
 - Aperture photometry with full uncertainty propagation
 - Cross-matching between filters
 
-### ⭐ Completeness Modeling
+### Completeness Modeling
 - Artificial star test framework
 - Error function, tanh, and Fermi-Dirac model comparison
 - Richardson-Lucy deconvolution for luminosity function recovery
 - Bayesian model selection (AIC/BIC)
 
-### 🎯 Membership Determination
+### Membership Determination
 - **Color-Magnitude Diagram** filtering with isochrone matching
 - **Proper Motion** filtering using Gaia DR3 astrometry
 - **Spatial distribution** modeling
 - Bayesian probability combination
 
-### 📈 Profile Fitting
+### Profile Fitting
 - Plummer profile: $\rho(r) = \rho_0 (1 + r^2/a^2)^{-5/2}$
 - King profile for comparison
 - Maximum likelihood and MCMC parameter estimation
