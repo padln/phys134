@@ -33,14 +33,22 @@ pip install numpy scipy matplotlib astropy photutils astroquery emcee
    - Inputs: g and r-band FITS files in `Data/`
    - Output: `m34_photometry_instrumental.csv`
 
-2. **Membership Determination** - Filter field stars using multi-dimensional criteria:
+2. **Artificial Star Test** - Measure photometric completeness:
+   ```bash
+   jupyter notebook artificial_star_test_example.ipynb
+   ```
+   - Inputs: FITS images from M2 or M34
+   - Outputs: Completeness function, fitted parameters
+   - Tests detection efficiency across magnitude range
+
+3. **Membership Determination** - Filter field stars using multi-dimensional criteria:
    ```bash
    jupyter notebook membership.ipynb
    ```
    - Inputs: Photometric catalog, Gaia proper motions
    - Output: Cluster member catalog with probabilities
 
-3. **Density Profile** - Fit Plummer/King models to radial distribution:
+4. **Density Profile** - Fit Plummer/King models to radial distribution:
    ```bash
    jupyter notebook density_profile.ipynb
    ```
@@ -57,12 +65,13 @@ PHYS 134L/
 ├── docs/                          # Theory and methodology guides
 │   ├── BACKGROUND_ESTIMATION_THEORY.md
 │   └── PIPELINE_WORKFLOW.md
-├── pipeline_utils.py              # Core photometry functions
-├── data_reduction_simple.ipynb    # Step 1: FITS → catalog
-├── membership.ipynb               # Step 2: Catalog → members
-├── completeness.ipynb             # Completeness function analysis
-├── signal_noise.ipynb             # S/N calculations
-└── mass_estimation.ipynb          # Photometric mass estimates
+├── pipeline_utils.py                    # Core photometry + AST functions
+├── data_reduction_simple.ipynb          # Step 1: FITS → catalog
+├── membership.ipynb                     # Step 2: Catalog → members
+├── completeness.ipynb                   # Completeness theory & models
+├── artificial_star_test_example.ipynb   # AST with M2/M34 real data
+├── signal_noise.ipynb                   # S/N calculations
+└── mass_estimation.ipynb                # Photometric mass estimates
 ```
 
 ## Key Features
@@ -79,10 +88,13 @@ PHYS 134L/
 - Cross-matching between filters
 
 ### Completeness Modeling
-- Artificial star test framework
+- **Artificial star test framework** with real M2/M34 FITS data
+- Star injection with realistic PSF models
+- Automated recovery fraction measurement
 - Error function, tanh, and Fermi-Dirac model comparison
 - Richardson-Lucy deconvolution for luminosity function recovery
 - Bayesian model selection (AIC/BIC)
+- Comprehensive example notebook: `artificial_star_test_example.ipynb`
 
 ### Membership Determination
 - **Color-Magnitude Diagram** filtering with isochrone matching
