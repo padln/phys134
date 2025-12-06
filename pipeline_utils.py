@@ -318,6 +318,217 @@ def save_catalog(catalog, filename, format='csv', overwrite=True):
     print(f"✓ Catalog saved to {filename}")
 
 
+def add_artificial_stars(data, positions, magnitudes, fwhm, zeropoint=0.0):
+    """
+    Add artificial stars to an image at specified positions and magnitudes.
+    
+    Uses a simple Gaussian PSF model to inject stars into the image.
+    
+    Parameters:
+    -----------
+    data : ndarray
+        Image data (2D array) - will be modified in place
+    positions : array-like
+        Star positions as (x, y) pairs in pixels, shape (N, 2)
+    magnitudes : array-like
+        Instrumental magnitudes of stars to add (or calibrated if zeropoint given)
+    fwhm : float
+        FWHM of PSF in pixels
+    zeropoint : float, optional
+        Photometric zeropoint (default=0 for instrumental magnitudes)
+        If non-zero, magnitudes are treated as calibrated: mag_inst = mag - zeropoint
+    
+    Returns:
+    --------
+    data_modified : ndarray
+        Image with artificial stars added
+    """
+    data_modified = data.copy()
+    
+    # Convert FWHM to Gaussian sigma
+    sigma = fwhm / (2.0 * np.sqrt(2.0 * np.log(2.0)))
+    
+    # Image dimensions
+    ny, nx = data.shape
+    
+    # Grid for PSF evaluation
+    y_grid, x_grid = np.ogrid[0:ny, 0:nx]
+    
+    for (x, y), mag in zip(positions, magnitudes):
+        # Convert magnitude to flux
+        # If zeropoint provided, convert calibrated mag to instrumental
+        mag_inst = mag - zeropoint
+        flux = 10**(-0.4 * mag_inst)
+        
+        # Create Gaussian PSF centered at (x, y)
+        psf = np.exp(-((x_grid - x)**2 + (y_grid - y)**2) / (2 * sigma**2))
+        
+        # Normalize PSF to have total flux = flux
+        psf = psf / np.sum(psf) * flux
+        
+        # Add to image
+        data_modified += psf
+    
+    return data_modified
+
+
+def run_artificial_star_test(data, header, wcs, magnitude_bins, n_stars_per_bin,
+                              fwhm, zeropoint=0.0, detection_params=None,
+                              photometry_params=None, match_radius=3.0):
+    """
+    Perform an artificial star test on real image data.
+    
+    Injects artificial stars across a range of magnitudes, runs photometry,
+    and calculates recovery fractions to measure completeness.
+    
+    Parameters:
+    -----------
+    data : ndarray
+        Original image data (2D array)
+    header : Header
+        FITS header
+    wcs : WCS
+        World coordinate system
+    magnitude_bins : array-like
+        Magnitude values at which to test completeness
+    n_stars_per_bin : int
+        Number of artificial stars to add per magnitude bin
+    fwhm : float
+        FWHM of PSF in pixels
+    zeropoint : float, optional
+        Photometric zeropoint for magnitude conversion
+    detection_params : dict, optional
+        Parameters for detect_sources (threshold, sharplo, etc.)
+    photometry_params : dict, optional
+        Parameters for aperture_photometry_pipeline
+    match_radius : float, optional
+        Matching radius in pixels to identify recovered stars
+    
+    Returns:
+    --------
+    results : dict
+        Dictionary with keys:
+        - 'magnitude_bins': Input magnitude bins
+        - 'n_added': Number of stars added per bin
+        - 'n_recovered': Number of stars recovered per bin
+        - 'completeness': Recovery fraction per bin
+        - 'completeness_err': Binomial uncertainty per bin
+        - 'injected_positions': List of injected (x, y) positions
+        - 'injected_magnitudes': List of injected magnitudes
+    """
+    if detection_params is None:
+        detection_params = {'threshold': 3.0, 'sharplo': 0.2, 'sharphi': 1.0}
+    
+    if photometry_params is None:
+        # Use reasonable defaults
+        photometry_params = {
+            'aperture_radius': 1.5 * fwhm,
+            'annulus_inner': 3.0 * fwhm,
+            'annulus_outer': 5.0 * fwhm,
+            'gain': header.get('GAIN', 1.0),
+            'rdnoise': header.get('RDNOISE', 10.0),
+            'exptime': header.get('EXPTIME', 1.0)
+        }
+    
+    # Storage for results
+    n_added = np.zeros(len(magnitude_bins), dtype=int)
+    n_recovered = np.zeros(len(magnitude_bins), dtype=int)
+    all_injected_positions = []
+    all_injected_magnitudes = []
+    
+    # Image dimensions
+    ny, nx = data.shape
+    
+    # Create buffer zone away from edges
+    border = 50  # pixels
+    
+    for i, mag in enumerate(magnitude_bins):
+        # Generate random positions for artificial stars (avoiding edges)
+        x_positions = np.random.uniform(border, nx - border, n_stars_per_bin)
+        y_positions = np.random.uniform(border, ny - border, n_stars_per_bin)
+        positions = np.column_stack([x_positions, y_positions])
+        
+        # All stars in this bin have the same magnitude
+        magnitudes = np.full(n_stars_per_bin, mag)
+        
+        # Store for output
+        all_injected_positions.extend(positions)
+        all_injected_magnitudes.extend(magnitudes)
+        n_added[i] = n_stars_per_bin
+        
+        # Add artificial stars to image
+        data_with_stars = add_artificial_stars(data, positions, magnitudes, fwhm, zeropoint)
+        
+        # Run photometry pipeline
+        # 1. Background subtraction
+        data_sub, bkg = estimate_background(data_with_stars)
+        
+        # 2. Source detection
+        sources = detect_sources(data_sub, bkg, fwhm, **detection_params)
+        
+        if sources is None or len(sources) == 0:
+            # No sources detected
+            n_recovered[i] = 0
+            continue
+        
+        # 3. Check which injected stars were recovered
+        # Match by position
+        recovered_count = 0
+        for x_inj, y_inj in positions:
+            # Calculate distances to all detected sources
+            dx = sources['xcentroid'] - x_inj
+            dy = sources['ycentroid'] - y_inj
+            distances = np.sqrt(dx**2 + dy**2)
+            
+            # Check if any source is within match_radius
+            if np.any(distances < match_radius):
+                recovered_count += 1
+        
+        n_recovered[i] = recovered_count
+    
+    # Calculate completeness and uncertainties
+    completeness = n_recovered / n_added
+    # Binomial uncertainty: sqrt(p(1-p)/N)
+    completeness_err = np.sqrt(completeness * (1 - completeness) / n_added)
+    
+    results = {
+        'magnitude_bins': magnitude_bins,
+        'n_added': n_added,
+        'n_recovered': n_recovered,
+        'completeness': completeness,
+        'completeness_err': completeness_err,
+        'injected_positions': np.array(all_injected_positions),
+        'injected_magnitudes': np.array(all_injected_magnitudes)
+    }
+    
+    return results
+
+
+def print_ast_results(results):
+    """
+    Print artificial star test results in a formatted table.
+    
+    Parameters:
+    -----------
+    results : dict
+        Output from run_artificial_star_test()
+    """
+    print("\nArtificial Star Test Results:")
+    print("=" * 70)
+    print(f"{'Magnitude':>10} | {'Added':>8} | {'Recovered':>10} | {'Completeness':>12} | {'Error':>8}")
+    print("-" * 70)
+    
+    for i, mag in enumerate(results['magnitude_bins']):
+        n_add = results['n_added'][i]
+        n_rec = results['n_recovered'][i]
+        comp = results['completeness'][i]
+        comp_err = results['completeness_err'][i]
+        
+        print(f"{mag:10.2f} | {n_add:8d} | {n_rec:10d} | {comp:12.3f} | {comp_err:8.3f}")
+    
+    print("=" * 70)
+
+
 # Print module info when imported
 print("✓ Pipeline utilities loaded")
 print("  Available functions:")
@@ -328,3 +539,6 @@ print("    - aperture_photometry_pipeline(...)")
 print("    - cross_match_catalogs(sources_1, sources_2, wcs_1, wcs_2)")
 print("    - calculate_photometric_zeropoint(...)")
 print("    - save_catalog(catalog, filename)")
+print("    - add_artificial_stars(data, positions, magnitudes, fwhm)")
+print("    - run_artificial_star_test(data, header, wcs, magnitude_bins, ...)")
+print("    - print_ast_results(results)")
