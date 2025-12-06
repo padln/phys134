@@ -327,7 +327,7 @@ def add_artificial_stars(data, positions, magnitudes, fwhm, zeropoint=0.0):
     Parameters:
     -----------
     data : ndarray
-        Image data (2D array) - will be modified in place
+        Image data (2D array) - original data is NOT modified
     positions : array-like
         Star positions as (x, y) pairs in pixels, shape (N, 2)
     magnitudes : array-like
@@ -341,7 +341,7 @@ def add_artificial_stars(data, positions, magnitudes, fwhm, zeropoint=0.0):
     Returns:
     --------
     data_modified : ndarray
-        Image with artificial stars added
+        Copy of image with artificial stars added
     """
     data_modified = data.copy()
     
