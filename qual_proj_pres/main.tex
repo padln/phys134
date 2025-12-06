@@ -1,0 +1,243 @@
+%----------------------------------------------------------------------------------------
+%    PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%    TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[M2 \& M34 Density Profiles]{Mass Density Profiles in Globular and Open Clusters}
+\subtitle{A Comparative Study of M2 and M34}
+
+\author{Chiara Caserta Lopez \& Nathan Madsen}
+
+\institute
+{
+    Physics 134L \\
+    UC Santa Barbara
+}
+\date{\today}
+
+%----------------------------------------------------------------------------------------
+%    PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% SLIDE 1: Scientific Motivation
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Scientific Motivation}
+    \textbf{Goal:} Measure and compare mass density profiles of two contrasting stellar systems
+
+    \vspace{0.5cm}
+
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \textbf{M2 (NGC 7089)}
+        \begin{itemize}
+            \item Ancient globular cluster
+            \item Age: $\sim$13 Gyr
+            \item Distance: 11.5 kpc
+            \item $>$150,000 stars
+            \item Highly concentrated core
+            \item [Fe/H] $\approx -1.6$
+        \end{itemize}
+
+        \column{.5\textwidth}
+        \textbf{M34 (NGC 1039)}
+        \begin{itemize}
+            \item Young open cluster
+            \item Age: $\sim$200 Myr
+            \item Distance: 470 pc
+            \item 100--400 members
+            \item Loosely bound
+            \item Solar metallicity
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.5cm}
+
+    \alert{Why study density profiles?}
+    \begin{itemize}
+        \item Encode formation history and dynamical evolution
+        \item Test theoretical models (Plummer, King, Wilson)
+        \item Understand cluster stability and dispersal timescales
+    \end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% SLIDE 2: Observational Strategy & SNR Requirements
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Observational Strategy \& Signal-to-Noise Requirements}
+    \textbf{Telescope:} Las Cumbres Observatory 0.4m network
+
+    \textbf{Filters:} SDSS $g'$ and $r'$ (multi-band for CMD membership)
+
+    \vspace{0.3cm}
+
+    \textbf{S/N Calculation:}
+    $$\frac{S}{N} = \frac{F A_\epsilon \tau}{\sqrt{N_R^2 + \tau (F A_\epsilon + i_{DC} + F_\beta A_\epsilon \Omega)}}$$
+
+    \vspace{0.3cm}
+
+    \begin{table}
+        \centering
+        \scriptsize
+        \begin{tabular}{l c c c c c}
+            \toprule
+            \textbf{Cluster} & \textbf{Filter} & \textbf{Mag} & \textbf{$t_{exp}$ (s)} & \textbf{S/N} & \textbf{S/N stacked} \\
+            \midrule
+            M2 & $g'$ & 14 & 8 & 180--300 & 310--520 \\
+            M2 & $g'$ & 18 & 120 & 45--60 & 78--104 \\
+            M2 & $g'$ & 21.5 & 300 & 20--24 & 35--42 \\
+            \midrule
+            M34 & $g'$ & 11 & 10 & 200--300 & 350--520 \\
+            M34 & $g'$ & 17.5 & 60 & 60--80 & 104--139 \\
+            M34 & $g'$ & 19 & 180 & 25--30 & 43--52 \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \vspace{0.2cm}
+
+    \textbf{Image Stacking:} $(S/N)_{\text{stacked}} = \sqrt{N_{\text{exp}}} \times (S/N)_{\text{single}}$
+
+    $\Rightarrow$ 3 exposures per field to achieve S/N $>$ 20 at faint limit
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% SLIDE 3: Methodology Overview
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Methodology: From Images to Density Profiles}
+    \begin{enumerate}
+        \item \textbf{Photometric Completeness Corrections}
+        \begin{itemize}
+            \item Artificial star tests: inject synthetic stars, measure recovery fraction
+            \item Maximum likelihood fit: $C(m) = \frac{1}{2}\left[1 + \text{erf}\left(\frac{m_{50}-m}{\sqrt{2}\sigma_{\text{comp}}}\right)\right]$
+            \item Richardson-Lucy deconvolution to correct for photometric scatter
+        \end{itemize}
+
+        \vspace{0.3cm}
+
+        \item \textbf{Multi-dimensional Membership Determination}
+        \begin{itemize}
+            \item \alert{CMD filtering:} Distance to theoretical isochrone
+            \item \alert{Proper motion filtering:} Gaia DR3 coherent cluster motion
+            \item \alert{Spatial filtering:} Centrally concentrated vs. uniform field
+            \item Combined Bayesian probability: $P_{\text{member}} = P_{\text{CMD}} \times P_{\text{PM}} \times P_{\text{spatial}}$
+        \end{itemize}
+
+        \vspace{0.3cm}
+
+        \item \textbf{Radial Profile Construction}
+        \begin{itemize}
+            \item Bin stars by angular distance from cluster center
+            \item Weight by membership probability
+            \item Fit Plummer model: $\rho(r) = \frac{3M}{4\pi a^3}\left(1 + \frac{r^2}{a^2}\right)^{-5/2}$
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% SLIDE 4: Expected Results
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Expected Results}
+    \textbf{Plummer Model Characterization}
+
+    $$\rho(r) = \frac{3M}{4\pi a^3}\left(1 + \frac{r^2}{a^2}\right)^{-5/2}$$
+
+    where $a$ = Plummer radius (core scale), $M$ = total cluster mass
+
+    \vspace{0.5cm}
+
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \textbf{M2 Expectations:}
+        \begin{itemize}
+            \item Small core radius ($a \sim 0.5$ pc)
+            \item High central density
+            \item Steep density profile ($\rho \propto r^{-5}$ at large $r$)
+            \item Total mass: $M \sim 10^5 M_\odot$
+            \item Dynamically evolved
+            \item Well-fit by Plummer/King models
+        \end{itemize}
+
+        \column{.5\textwidth}
+        \textbf{M34 Expectations:}
+        \begin{itemize}
+            \item Larger core radius ($a \sim 2$ pc)
+            \item Low central density
+            \item Shallow profile
+            \item Total mass: $M \sim 10^3 M_\odot$
+            \item Dynamically young
+            \item Potential tidal disruption signatures
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.5cm}
+
+    \textbf{Key Comparison:}
+    \begin{itemize}
+        \item Density contrast: M2 core $\sim 10^3 \times$ denser than M34
+        \item Structural evolution: tight binding vs. dispersing system
+        \item Test universality of density profile models across cluster types
+    \end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+% SLIDE 5: Summary
+%----------------------------------------------------------------------------------------
+
+\begin{frame}{Summary}
+    \textbf{Project Goals:}
+    \begin{enumerate}
+        \item Develop rigorous photometric analysis pipeline for stellar clusters
+        \item Apply multi-dimensional membership determination (CMD + PM + spatial)
+        \item Measure mass density profiles for M2 (globular) and M34 (open cluster)
+        \item Fit Plummer models and characterize structural parameters
+    \end{enumerate}
+
+    \vspace{0.5cm}
+
+    \textbf{Quantitative Requirements:}
+    \begin{itemize}
+        \item \alert{S/N:} $>$20 at faint limit ($g' \sim 21$--22), $>$100 for bright members
+        \item \alert{Integration times:} 8--300s per exposure (depends on magnitude)
+        \item \alert{Filters:} SDSS $g'$ and $r'$ for color-magnitude analysis
+        \item \alert{Stacking:} 3 exposures per field $\Rightarrow$ $\sqrt{3} \approx 1.7\times$ S/N boost
+        \item \alert{Completeness:} $>$90\% at $m < m_{50}$, measure via artificial star tests
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+    \textbf{Scientific Impact:}
+    \begin{itemize}
+        \item Understand cluster formation and dynamical evolution
+        \item Comparative study spanning 2 orders of magnitude in age and mass
+        \item Methodology applicable to systematic Galactic cluster surveys
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \Huge{\centerline{\textbf{Thank You}}}
+\end{frame}
+
+\end{document}

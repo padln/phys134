@@ -2,6 +2,7 @@
 
 # Project status and internal documentation (not for classmates)
 .project/
+.qual_proj_pres/
 
 # Python cache
 __pycache__/
