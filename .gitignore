@@ -1,5 +1,8 @@
 # .gitignore
 
+# macOS system files
+.DS_Store
+
 # Project status and internal documentation (not for classmates)
 .project/
 .qual_proj_pres/
