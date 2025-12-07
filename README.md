@@ -66,12 +66,14 @@ PHYS 134L/
 │   ├── BACKGROUND_ESTIMATION_THEORY.md
 │   └── PIPELINE_WORKFLOW.md
 ├── pipeline_utils.py                    # Core photometry + AST functions
+├── completeness_correction.py           # Completeness correction & RL deconvolution
 ├── data_reduction_simple.ipynb          # Step 1: FITS → catalog
-├── membership.ipynb                     # Step 2: Catalog → members
-├── completeness.ipynb                   # Completeness theory & models
+├── membership.ipynb                     # Step 2: Catalog → members (with completeness correction)
+├── completeness.ipynb                   # Completeness theory, models & correction examples
 ├── artificial_star_test_example.ipynb   # AST with M2/M34 real data
 ├── signal_noise.ipynb                   # S/N calculations
-└── mass_estimation.ipynb                # Photometric mass estimates
+├── mass_estimation.ipynb                # Photometric mass estimates
+└── run_ast.py                           # Script to run AST on all available images
 ```
 
 ## Key Features
@@ -89,12 +91,15 @@ PHYS 134L/
 
 ### Completeness Modeling
 - **Artificial star test framework** with real M2/M34 FITS data
-- Star injection with realistic PSF models
-- Automated recovery fraction measurement
-- Error function, tanh, and Fermi-Dirac model comparison
-- Richardson-Lucy deconvolution for luminosity function recovery
-- Bayesian model selection (AIC/BIC)
+- Star injection with realistic PSF models (Gaussian approximation)
+- Automated recovery fraction measurement across magnitude range
+- Error function model fitting with maximum likelihood estimation
+- **Completeness correction module** (`completeness_correction.py`):
+  - Apply corrections to observed star counts and radial profiles
+  - Richardson-Lucy deconvolution for profile recovery
+  - Integrated into membership analysis pipeline
 - Comprehensive example notebook: `artificial_star_test_example.ipynb`
+- Theory and usage guide: `completeness.ipynb`
 
 ### Membership Determination
 - **Color-Magnitude Diagram** filtering with isochrone matching
