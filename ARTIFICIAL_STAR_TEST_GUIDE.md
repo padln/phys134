@@ -21,11 +21,15 @@ jupyter notebook artificial_star_test_example.ipynb
 
 This notebook will:
 1. Load FITS images from the `Data/` directory
-2. Inject artificial stars at known positions and magnitudes
+2. Inject artificial stars at known positions and magnitudes (instrumental range: -16 to -8 mag)
 3. Run the photometry pipeline to detect sources
 4. Calculate recovery fractions (completeness)
 5. Fit a completeness model to the data
 6. Visualize and save results
+
+**Note**: The magnitude range is set to match the instrumental magnitudes of real stars in the images.
+Typical bright stars have instrumental magnitudes around -15 mag, while fainter detectable stars
+are around -8 mag (before photometric calibration).
 
 ### Using the Python API
 
@@ -168,6 +172,26 @@ Weight cluster membership probabilities:
 P_member_weighted = P_member(CMD, PM, spatial) / C(m)
 ```
 
+### Using the Completeness Correction Module
+
+```python
+from completeness_correction import (
+    load_completeness_model,
+    apply_completeness_correction
+)
+
+# Load AST results
+m50, sigma_comp = load_completeness_model('completeness_model_params.txt')
+
+# Apply correction to radial profile
+N_corrected, C = apply_completeness_correction(
+    N_observed, magnitudes, m50, sigma_comp
+)
+```
+
+See `completeness.ipynb` for detailed examples and `membership.ipynb` for integration
+with radial profile analysis.
+
 ## Best Practices
 
 ### Number of Artificial Stars
@@ -181,8 +205,10 @@ More stars = better statistics but longer computation time.
 ### Magnitude Range
 
 - Start ~2 magnitudes brighter than brightest real sources
-- End ~2 magnitudes fainter than detection limit
-- Use 0.5 mag bins for smooth coverage
+- End at the faint detection limit
+- Use 0.5-1.0 mag bins for smooth coverage
+- **For instrumental magnitudes**: Typical range is -16 to -8 mag
+- **For calibrated magnitudes**: Adjust based on photometric zeropoint
 
 ### Spatial Considerations
 
