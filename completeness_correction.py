@@ -129,7 +129,10 @@ def richardson_lucy_deconvolution(observed_profile, psf, n_iterations=10):
     estimate = observed_profile.copy()
     
     # Normalize PSF
-    psf_norm = psf / np.sum(psf)
+    psf_sum = np.sum(psf)
+    if psf_sum == 0:
+        raise ValueError("PSF sum is zero - cannot normalize. Check PSF input.")
+    psf_norm = psf / psf_sum
     
     for i in range(n_iterations):
         # Convolve current estimate with PSF
@@ -191,7 +194,8 @@ def create_completeness_kernel(r_bins, m50, sigma_comp, mag_at_radius_func,
     # Apply spatial smoothing (Gaussian kernel)
     sigma_spatial = fwhm_spatial / (2.0 * np.sqrt(2.0 * np.log(2.0)))
     x = np.arange(len(C))
-    kernel = np.exp(-(x - len(C)/2)**2 / (2 * sigma_spatial**2))
+    x_center = (len(C) - 1) / 2.0  # Center for proper alignment with odd/even arrays
+    kernel = np.exp(-(x - x_center)**2 / (2 * sigma_spatial**2))
     
     # Convolve completeness with spatial kernel
     psf = convolve1d(C, kernel, mode='constant', cval=C[-1])

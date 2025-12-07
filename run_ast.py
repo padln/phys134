@@ -95,9 +95,13 @@ def run_ast_for_cluster(fits_file, cluster_name, output_prefix):
     print(f"  sigma_comp (width): {sigma_fit:.2f} mag")
     print(f"  Log-likelihood: {-result_fit.fun:.2f}")
     
-    # Calculate useful metrics
-    m90 = m50_fit + sigma_fit * np.sqrt(2) * 0.906
-    m10 = m50_fit - sigma_fit * np.sqrt(2) * 0.906
+    # Calculate some useful metrics
+    # The value 0.906 comes from solving erf^-1(0.8) / sqrt(2)
+    # for 90% completeness: C = 0.5 * (1 + erf((m50 - m90) / (sqrt(2) * sigma)))
+    # Solving for m90 when C=0.9 gives m90 = m50 + sigma * sqrt(2) * 0.906
+    ERF_INV_08 = 0.906  # erf^-1(0.8) / sqrt(2), for 90%/10% completeness levels
+    m90 = m50_fit + sigma_fit * np.sqrt(2) * ERF_INV_08
+    m10 = m50_fit - sigma_fit * np.sqrt(2) * ERF_INV_08
     
     print(f"\nCompleteness Levels:")
     print(f"  90% complete at: {m90:.2f} mag")
@@ -154,17 +158,34 @@ if __name__ == "__main__":
     for i, f in enumerate(fits_files):
         print(f"  {i+1}. {f}")
     
-    # Run AST on first two files (one for M2, one for M34 if available)
-    # Based on filenames, these appear to be from different observations
-    
-    if len(fits_files) >= 1:
-        # First file - assume M2 based on observation
-        run_ast_for_cluster(fits_files[0], "M2", "m2_completeness")
-    
-    if len(fits_files) >= 2:
-        # Second file - could be M34 or another M2 image
-        # For now, label as M2_alt
-        run_ast_for_cluster(fits_files[1], "M2_alt", "m2_alt_completeness")
+    # Run AST on first two files
+    # Try to identify cluster from FITS header or filename
+    for i, fits_file in enumerate(fits_files[:2]):
+        # Try to extract cluster name from header
+        try:
+            from astropy.io import fits as pyfits
+            with pyfits.open(fits_file) as hdul:
+                header = hdul[0].header
+                obj_name = header.get('OBJECT', '').upper()
+                filter_name = header.get('FILTER', 'unknown')
+                
+                # Identify cluster from OBJECT header
+                if 'M2' in obj_name or 'NGC 7089' in obj_name or 'NGC7089' in obj_name:
+                    cluster_name = 'M2'
+                elif 'M34' in obj_name or 'NGC 1039' in obj_name or 'NGC1039' in obj_name:
+                    cluster_name = 'M34'
+                else:
+                    # Fall back to generic naming
+                    cluster_name = f'Cluster_{i+1}'
+                
+                # Add filter info to output prefix
+                output_prefix = f"{cluster_name.lower()}_{filter_name}_completeness"
+        except Exception as e:
+            print(f"Warning: Could not read header from {fits_file}: {e}")
+            cluster_name = f'Cluster_{i+1}'
+            output_prefix = f"{cluster_name.lower()}_completeness"
+        
+        run_ast_for_cluster(fits_file, cluster_name, output_prefix)
     
     print("\n" + "="*70)
     print("AST runs complete!")
