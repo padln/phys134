@@ -1,0 +1,5 @@
+\frametitle{References}
+    \footnotesize
+    % Bibliography from reference.bib file
+    \bibliography{reference}
+    \bibliographystyle{apalike}

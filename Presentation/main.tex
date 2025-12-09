@@ -23,7 +23,7 @@
 %----------------------------------------------------------------------------------------
 
 \title[Mass Density Profiles]{Mass Density Profiles in Globular and Open Clusters}
-\subtitle{A Comparative Study of M2 and M34}
+\subtitle{A Comparative Study of M2 and MS/34}
 
 \author{Chiara Caserta Lopez \& Nathan Madsen}
 
@@ -42,6 +42,32 @@
 
 \begin{frame}
     \titlepage
+\end{frame}
+
+\begin{frame}{Scientific Motivation}
+\small
+\begin{itemize}
+    \item Star clusters are natural laboratories for studying \textbf{stellar evolution} and \textbf{gravitational dynamics}. \cite{binney2008}
+    \vspace{0.2cm}
+    \item Through countless two-body encounters, more massive stars lose kinetic energy and \textbf{sink toward the cluster center}, while lighter stars migrate outward.
+    \vspace{0.2cm}
+    \item This process, known as \textbf{mass segregation}, reveals the \textbf{dynamical age} of a cluster — how far it has evolved toward energy equipartition.
+    \vspace{0.2cm}
+    \item Comparing a \textbf{young open cluster (M34)} with an \textbf{old globular cluster (M2)} allows us to test how mass segregation strengthens with time and stellar density. \cite{2010ApJS..191..352H,2010ApJ...710.1787S}
+    \vspace{0.2cm}
+    \item Understanding this helps explain how clusters \textbf{evolve, dissolve, and contribute stars to the Galactic field}.
+\end{itemize}
+\end{frame}
+
+%====================================================
+\begin{frame}{Concept: Mass Segregation in Star Clusters}
+    \begin{itemize}
+        \item Gravitational encounters redistribute energy between stars.
+        \item \textbf{Massive stars} lose energy and migrate inward.
+        \item \textbf{Low-mass stars} gain energy and drift outward.
+        \item The effect becomes stronger as the cluster dynamically relaxes.
+        \item Observable through radial distributions or CMD-based mass gradients.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Introduction to Star Clusters}
@@ -69,7 +95,7 @@
 
 \begin{frame}{The Plummer Model}
     \begin{itemize}
-        \item Proposed 1911 as a mathematical model for globular clusters. \cite{p1}
+        \item Proposed in 1911 as a mathematical model for globular clusters. \cite{p1}
         \item Provides a simple, analytically tractable representation of a spherical system, featuring a core of constant density that transitions to a steeper fall-off at larger radii.
         \item This model is particularly useful for studying the dynamics of clusters, as it offers a smooth, continuous description of the mass distribution.
     \end{itemize}
@@ -133,7 +159,11 @@
         \item \textbf{Outer Profile:} As $r \to \infty$, the density falls off steeply as $r^{-5}$:
         $$ \rho(r) \propto r^{-5} $$
     \end{itemize}
+    \cite{king1966}
 \end{frame}
+
+
+
 
 \section{Signal to Noise Ratio}
 \begin{frame}{S/N Formula}
@@ -143,7 +173,7 @@
         \item \textbf{Noise:}
         $$N_T^2 = N_R^2 + N_S^2 + N_{DC}^2 + N_\beta^2$$
         \item \textbf{Signal to Noise:}
-        $$S/N = \frac{F A_\epsilon \tau}{\big( N_R^2 + \tau (F A_\epsilon + i_{DC} + F_\beta A_\epsilon \Omega)\big)^{1/2}}$$ \cite{p2}
+        $$S/N = \frac{F A_\epsilon \tau}{\big( N_R^2 + \tau (F A_\epsilon + i_{DC} + F_\beta A_\epsilon \Omega)\big)^{1/2}}$$ \cite{p2,howell2006}
     \end{itemize}
 \end{frame}
 
@@ -151,10 +181,9 @@
 \begin{frame}[fragile]{Implementation}
     \begin{lstlisting}[language=Python, 
                    basicstyle=\ttfamily\tiny,
-                   keywordstyle=\color{blue},
+                   keywordstyle=\color{magenta},
                    stringstyle=\color{red},
                    backgroundcolor=\color{backcolour},
-                   keywordstyle=\color{magenta},
                    commentstyle=\color{green!50!black},
                    showstringspaces=false,
                    numbers=left,
@@ -195,6 +224,47 @@ def snr(target_flux, area_effective, integration_time,
     \end{figure}
 \end{frame}
 
+
+\begin{frame}{S/N Calculations}
+    \begin{table}
+        \centering
+        \begin{tabular}{l l l l l l l}
+            \toprule
+            \textbf{Object} & \textbf{Filter} & \textbf{Mag} & \textbf{\# Exp} & \textbf{Int t} & \textbf{S/N} & \textbf{S/N stack}\\
+            \midrule
+            M2 & SDSS g' & 14 & 3 & 8 & 180–300 & 310–520\\
+            M2 & SDSS g' & 18 & 3 & 120 & 45–60 & 78–104\\
+            M2 & SDSS g' & 21.5 & 3 & 300 & 20–24 & 35–42\\
+            M34 & SDSS g' & 11 & 3 & 10 & 200–300 & 350–520\\
+            M34 & SDSS g' & 17.5 & 3 & 60 & 60–80 & 104–139\\
+            M34 & SDSS g' & 19 & 3 & 180 & 25–30 & 43–52\\
+            M2 & SDSS r' & 14 & 3 & 8 & 250–400 & 430–690\\
+            M2 & SDSS r' & 18 & 3 & 90 & 50–70 & 87–121\\
+            M2 & SDSS r' & 20.5 & 3 & 240 & 22–28 & 38–49\\
+            M34 & SDSS r' & 11 & 3 & 10 & $>$ 300& $\gg$ 500\\
+            M34 & SDSS r' & 17.5 & 3 & 60 & 70–90 & 120–155\\
+            M34 & SDSS r' & 19 & 3 & 180 & 30–35 & 52–61\\
+            \bottomrule
+        \end{tabular}
+        \caption{S/N calculations for each filter}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Image stacking to increase S/N ratio}
+    Each exposure contains the same signal (star light) but different noise (random variations).
+    
+    Adding or averaging multiple exposures reinforces the signal and averages down the noise.
+
+    \begin{equation*}
+        S/N_{stacked}=S/N_{single} \times \sqrt{N}
+    \end{equation*}
+
+    Where $N$ is the number of images. 
+
+    This allows shorter individual exposures (avoids saturation) and improves photometric precision and faint-star detection.
+
+\end{frame}
+
 \section{Completeness Corrections}
 \subsection{Theoretical Foundation}
 \begin{frame}{Fundemental Problem}
@@ -215,11 +285,17 @@ def snr(target_flux, area_effective, integration_time,
 \end{frame}
 
 \begin{frame}{Mathematical Framework}
-    $$P(m_{obs} | m_{true}) = \frac{1}{\sqrt{2\pi \sigma_m^2}} \exp\left[ -\frac{(m_{obs}-m_{true})^2}{2\sigma_m^2}\right]$$
+    \[
+        P(m_{obs} | m_{true}) = \frac{1}{\sqrt{2\pi \sigma_m^2}} \exp\left[ -\frac{(m_{obs}-m_{true})^2}{2\sigma_m^2}\right]
+    \]
     with $\sigma_m(m)$ as magnitude-dependent photometric uncertainty. So
-    $$C(m_{true}) = \int_{-\infty}^{m_{lim}}P(m_{obs}|m_{true})dm_{obs}$$
+    \[
+        C(m_{true}) = \int_{-\infty}^{m_{lim}}P(m_{obs}|m_{true})dm_{obs}
+    \]
     with $m_{lim}$ as limiting magnitude. So
-    $$C(m) = \frac{1}{2} \left[ 1 + \mathrm{erf}\left( \frac{m_{50} - m}{\sqrt{2} \sigma_{comp}}\right)\right] $$
+    \[
+        C(m) = \frac{1}{2} \left[ 1 + \mathrm{erf}\left( \frac{m_{50} - m}{\sqrt{2} \sigma_{comp}}\right)\right]
+    \]
     with $m_{50}$ as $50\%$ completeness magnitude, $\sigma_{comp}$ controls steepness
 \end{frame}
 
@@ -237,7 +313,7 @@ def snr(target_flux, area_effective, integration_time,
 \subsection{Artificial Star Test}
 \begin{frame}{Methodology}
     \begin{itemize}
-        \item For a magnitude bin $m_i$ in $[m_{min}, m_{max}]$ generate $N_{add}$ stars with random positions $(x_i,y_i)$
+        \item For a magnitude bin $m_i$ in $[m_{min}, m_{max}]$ generate $N_{add}$ stars with random positions $(x_i,y_i)$ \cite{stetson1990}
         \item Use reduction pipeline
         \item Match recovered stars to input positions
         $$\Delta r_{ij} = \sqrt{(x_i-x_j^{rec})^2+(y_i-y_j^{rec})^2}$$
@@ -258,7 +334,7 @@ def snr(target_flux, area_effective, integration_time,
 \begin{frame}{Fitting to Error Function Model}
     Using our set of completeness values $\{ C_i\pm \sigma_i\}$ at magnitudes $\{ m_i \}$ we fit and minimize
     $$\chi^2(\theta) = \sum_i \frac{[C_i-C(m_i; \theta)]^2}{\sigma_i^2}$$
-    But least squares assumes errors are Gaussian (not true) and have constant variance (not true, depends on $N$). Instead, use binomial statistics. 
+    But least squares assumes errors are Gaussian (not true) and have constant variance (not true, depends on $N$). Instead, use binomial statistics. \cite{stetson1987,bertin1996}
     $$N_{rec} \approx \mathrm{Binomial}(N_{add},C(m))$$
     or
     $$P(N_{rec}|N_{add}, C) = {N_{add} \choose N_{rec}}C^{N_{rec}}(1-C)^{N_{add}-N_{rec}} = \mathcal{L}(C|N_{rec},N_{add})$$
@@ -289,7 +365,7 @@ def snr(target_flux, area_effective, integration_time,
 
 \subsection{Richardson-Lucy Deconvolution}
 \begin{frame}{Richardson-Lucy Deconvolution}
-    \textbf{Problem}: We observe a distorted luminosity function
+    \textbf{Problem}: We observe a distorted luminosity function \cite{richardson1972,lucy1974}
     $$\Phi_{obs}(m) = \int K(m,m')\Phi_{true}(m')dm' $$
     Where $K(m,m')$ is the kernel representing
     \begin{itemize}
@@ -301,8 +377,15 @@ def snr(target_flux, area_effective, integration_time,
     $$P(m|m') = \frac{1}{\sqrt{2\pi \sigma_m^2}}\exp \left[ - \frac{(m-m')^2}{2\sigma_m^2} \right] $$
 \end{frame}
 \begin{frame}{Richardson-Lucy Algorithm}
-    We want to recover $\Phi_{true}$ from $\Phi_{obs}$. The naive approach is $\Phi_{true}=\Phi_{obs}/C(m)$. This ignores scattering. Instead be aim to maximize the likelihood under Poisson statistics and enforce positivity. Start with a guess $\Phi_{true}^{(0)} = \Phi_{obs}$ and iterate
+    We want to recover $\Phi_{true}$ from $\Phi_{obs}$. The naive approach is $\Phi_{true}=\Phi_{obs}/C(m)$. This ignores scattering. Instead we aim to maximize the likelihood under Poisson statistics and enforce positivity. Start with a guess $\Phi_{true}^{(0)} = \Phi_{obs}$ and iterate
     $$ \Phi_{true}^{(n+1)}(m') = \Phi_{true}^{(n)}(m')\int \frac{\Phi_{obs}(m)}{\left[ \int K(m,m'')\Phi_{true}^{(n)}(m'')dm''\right]}K(m,m')dm$$
+\end{frame}
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.7\linewidth]{Figures/phot_completeness_m2.png}
+        \includegraphics[width=0.7\linewidth]{Figures/phot_completeness_m34.png}
+        \caption{Completeness functions for M2 (top) and M34 (bottom)}
+    \end{figure}
 \end{frame}
 
 \section{Membership Determination}
@@ -316,7 +399,7 @@ def snr(target_flux, area_effective, integration_time,
 \end{frame}
 \subsection{Color-Magnitude Diagram Filtering}
 \begin{frame}{CMD Filtering: Theory}
-    Stars in a cluster
+    Stars in a cluster \cite{bressan2012,cardelli1989}
     \begin{itemize}
         \item Same age $\rightarrow$ follow single isochrone
         \item Same metallicity $[Fe/H]$
@@ -339,7 +422,7 @@ def snr(target_flux, area_effective, integration_time,
 
 \subsection{Proper Motion Filtering (Gaia)}
 \begin{frame}{Proper Motion Distribution}
-    Cluster stars move coherently, field stars move randomly. Follow a bivariate Gaussian in proper motion-space
+    Cluster stars move coherently, field stars move randomly. Follow a bivariate Gaussian in proper motion-space \cite{gaiadr3}
     $$P(\mathbf{\mu}_i|\text{cluster}) = \mathcal{N}(\mu_i ; \mu_{cluster},\Sigma_{cluster})$$
     where:
     $$\mu_{cluster} = \begin{bmatrix} \overline{\mu_\alpha \cos \delta} \\ \overline{\mu_\delta} \end{bmatrix}, \qquad \Sigma_{cluster} = \begin{bmatrix} \sigma^2_{\mu_\alpha} & \rho \sigma_{\mu_\alpha} \sigma_{\mu_\delta} \\ \rho \sigma_{\mu_\alpha} \sigma_{\mu_\delta} &  \sigma^2_{\mu_\delta} \end{bmatrix}$$
@@ -359,6 +442,25 @@ def snr(target_flux, area_effective, integration_time,
 \begin{frame}{Radial Profile Method}
     Cluster stars are centrally concentrated, field stars are uniformly distributed. Surface density: 
     $$\Sigma(r) = \Sigma_{cluster}(r)+\Sigma_{background}$$
+    \begin{figure}
+        \centering
+        % Placeholder for a radial density profile graph
+        \includegraphics[width=0.7\textwidth]{Figures/spatial_distribution_m34.png}
+        \includegraphics[width=0.7\textwidth]{Figures/spatial_distribution_m2.png}
+        \caption{Spatial likelihood based on radial distance from cluster center. Top: M34, Bottom: M2}
+    \end{figure}
+\end{frame}
+
+\section{Mass Estimation From Photometry}
+\begin{frame}{The Challenge with Mass Estimation}
+    To measure a mass density profile $\rho_{mass}(r)$, not just number density $n(r)$. We use \cite{kroupa2001,henry2004}
+    $$\rho_{mass}(r) = \int_0^\infty \phi(M,r)\cdot MdM $$
+    where $\phi(M,r)$ is the mass function.
+
+    \textbf{Problem}: We observe light, not mass
+
+    \textbf{The Observable Chain:} \\
+    Detector counts $\rightarrow$ Apparent magnitude $m \rightarrow$ Absolute magnitude $M \rightarrow$ Luminosity $L \rightarrow$ Mass $\mathcal{M}$
 \end{frame}
 
 
@@ -377,10 +479,12 @@ def snr(target_flux, area_effective, integration_time,
         \column{.5\textwidth}
         \begin{figure}
         \centering
-            \includegraphics[width=\textwidth]{placeholder-m2.jpg}
+            \includegraphics[width=\textwidth]{Figures/m2.png}
             \caption*{The globular cluster M2}
         \end{figure}
     \end{columns}
+    \vspace{0.2cm}
+    \cite{2010ApJS..191..352H,2010MNRAS.407.2241N}
 \end{frame}
 
 \begin{frame}{M2's Mass Density Profile}
@@ -411,10 +515,12 @@ def snr(target_flux, area_effective, integration_time,
         \column{.5\textwidth}
         \begin{figure}
         \centering
-            \includegraphics[width=\textwidth]{m34_rp_banzai.png}
+            \includegraphics[width=\textwidth]{Figures/m34.png}
             \caption*{The open cluster M34}
         \end{figure}
     \end{columns}
+    \vspace{0.2cm}
+    \cite{2010ApJ...710.1787S,2018A&A...618A..93C}
 \end{frame}
 
 \begin{frame}{M34's Mass Density Profile}
@@ -452,53 +558,166 @@ def snr(target_flux, area_effective, integration_time,
     \end{table}
 \end{frame}
 
-\begin{frame}{S/N Calculations}
+\section{Analysis and Results}
+
+\begin{frame}{Analysis Overview}
+    \begin{itemize}
+        \item Use the \textbf{cleaned member catalog} to compare the internal structure of M2 and M34.
+        \item Focus on three main diagnostics:
+        \begin{itemize}
+            \item Color--magnitude diagrams (CMDs) for stellar populations.
+            \item Radial distribution of stellar mass (mass segregation).
+            \item Line-of-sight velocity dispersions and relaxation times.
+        \end{itemize}
+        \item Goal: determine how far each cluster has evolved dynamically and how strongly mass is segregated.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Color--Magnitude Diagrams: M34 vs.\ M2}
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+        \textbf{M34 (open cluster)}
+        \begin{itemize}
+            \item Young, metal-rich main sequence with a clear turnoff.
+            \item Only a small number of evolved stars.
+            \item CMD consistent with an age of $\sim \num{2e8}$~yr at $d \approx \SI{470}{pc}$.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \textbf{M2 (globular cluster)}
+        \begin{itemize}
+            \item Old, metal-poor population dominated by red giants.
+            \item Extended horizontal branch and giant branch.
+            \item CMD consistent with an age of $\sim \num{1.2e10}$~yr at $d \approx \SI{11.5}{kpc}$.
+        \end{itemize}
+    \end{columns}
+
+\end{frame}
+\begin{frame}{CMD plots}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{Figures/cmd_membership_m34.png}\\
+        \includegraphics[width=0.7\textwidth]{Figures/cmd_membership_m2.png}
+        \caption{CMDs for M34 (left) and M2 (right)}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Radial Distribution by Stellar Mass}
+    \begin{itemize}
+        \item Use $r$-band magnitude as a proxy for stellar mass.
+        \item For each cluster:
+        \begin{itemize}
+            \item Select high-probability members ($P_{\mathrm{mem}} \gtrsim 0.8$).
+            \item Rank stars by $r$ and define:
+            \begin{itemize}
+                \item ``Bright'' sample = brightest 30\% (higher-mass stars).
+                \item ``Faint'' sample = faintest 30\% (lower-mass stars).
+            \end{itemize}
+            \item Compare cumulative radial distributions $F_{\mathrm{bright}}(R)$ and $F_{\mathrm{faint}}(R)$.
+        \end{itemize}
+        \item Quantify the difference with a two-sample Kolmogorov--Smirnov (K--S) test.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Mass Segregation: K--S Test Results}
     \begin{table}
         \centering
-        \begin{tabular}{l l l l l l l}
+        \begin{tabular}{lccc}
             \toprule
-            \textbf{Object} & \textbf{Filter} & \textbf{Mag} & \textbf{\# Exp} & \textbf{Int t} & \textbf{S/N} & \textbf{S/N stack}\\
+            \textbf{Cluster} & $D$ & $p$-value & Interpretation \\
             \midrule
-            M2 & SDSS g' & 14 & 3 & 8 & 180–300 & 310–520\\
-            M2 & SDSS g' & 18 & 3 & 120 & 45–60 & 78–104\\
-            M2 & SDSS g' & 21.5 & 3 & 300 & 20–24 & 35–42\\
-            M34 & SDSS g' & 11 & 3 & 10 & 200–300 & 350–520\\
-            M34 & SDSS g' & 17.5 & 3 & 60 & 60–80 & 104–139\\
-            M34 & SDSS g' & 19 & 3 & 180 & 25–30 & 43–52\\
-            M2 & SDSS r' & 14 & 3 & 8 & 250–400 & 430–690\\
-            M2 & SDSS r' & 18 & 3 & 90 & 50–70 & 87–121\\
-            M2 & SDSS r' & 20.5 & 3 & 240 & 22–28 & 38–49\\
-            M34 & SDSS r' & 11 & 3 & 10 & $>$ 300& $\gg$ 500\\
-            M34 & SDSS r' & 17.5 & 3 & 60 & $70–90$ & 120–155\\
-            M34 & SDSS r' & 19 & 3 & 180 & 30–35 & 52–61\\
+            M34 & $0.126$ & $1.1\times 10^{-5}$ & Moderate, significant segregation \\
+            M2  & $0.400$ & $1.2\times 10^{-84}$ & Very strong segregation \\
             \bottomrule
         \end{tabular}
-        \caption{S/N calculations for each filter}
     \end{table}
+    \begin{itemize}
+        \item In both clusters, bright (high-mass) stars are more centrally concentrated than faint stars.
+        \item Effect is \textbf{much stronger} in M2, consistent with its status as an old, dense globular cluster.
+        \item M34 shows clear but only moderate segregation, typical of a dynamically evolved open cluster.
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Image stacking to increase S/N ratio}
-    Each exposure contains the same signal (star light) but different noise (random variations).
-    
-    Adding or averaging multiple exposures reinforces the signal and averages down the noise.
 
-    \begin{equation*}
-        S/N_{stacked}=S/N_{single} × \sqrt{N}
-    \end{equation*}
-
-    Where $N$ is the number of images. 
-
-    This allows shorter individual exposures (avoids saturation) and improves photometric precision and faint-star detection.
-
+\begin{frame}{Synthetic Velocity Dispersion Profiles}
+    \begin{itemize}
+        \item Direct Gaia DR3 radial velocities could not be accessed reliably, so we constructed \textbf{synthetic} Gaia-like radial velocities:
+        \begin{itemize}
+            \item For each member star, draw $v_{r,i} \sim \mathcal{N}(v_0, \sigma_v(R_i))$.
+            \item Adopt nearly constant $\sigma_v \approx 0.5~\mathrm{km\,s^{-1}}$ for M34.
+            \item For M2 use a declining profile: high central $\sigma_v$ that falls toward the outskirts.
+        \end{itemize}
+        \item Bin stars in radius and estimate the intrinsic dispersion in each bin using
+        \[
+            \sigma_v^2 = \frac{1}{N-1}\sum_i (v_{r,i}-\bar{v}_r)^2 - \frac{1}{N}\sum_i \epsilon_i^2,
+        \]
+        where $\epsilon_i$ are measurement errors.
+        \item Recovered global dispersions:
+        \begin{itemize}
+            \item M34: $\sigma_v \approx 0.5 \pm 0.1~\mathrm{km\,s^{-1}}$ (cold, nearly flat profile).
+            \item M2: $\sigma_v \approx 10 \pm 1~\mathrm{km\,s^{-1}}$ (hot center, declining with radius).
+        \end{itemize}
+    \end{itemize}
 \end{frame}
+
+
+
+
+\begin{frame}{Relaxation Time and Dynamical State}
+    \begin{itemize}
+        \item Two-body relaxation time at the half-mass radius:
+        \[
+            t_{\mathrm{relax}} \approx \frac{0.1 N}{\ln N}\, t_{\mathrm{cross}},
+            \qquad
+            t_{\mathrm{cross}} = \frac{R_h}{\sigma_v}.
+        \]
+        \item Using synthetic dispersions and structural parameters:
+    \end{itemize}
+    \begin{table}
+        \centering
+        \begin{tabular}{lcccc}
+            \toprule
+            Cluster & $N$ & $R_h$ [pc] & $t_{\mathrm{relax}}$ & $t_{\mathrm{age}}/t_{\mathrm{relax}}$ \\
+            \midrule
+            M34 & $\sim 400$   & $0.30$ & $\sim \SI{4}{Myr}$   & $\sim 50$ \\
+            M2  & $\sim 10^{5}$ & $10$  & $\sim \SI{0.70}{Gyr}$ & $\sim 17$ \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item Both clusters are older than their relaxation times, so significant mass segregation is expected.
+        \item M2 has experienced many relaxation cycles over a Hubble time; M34, though young, is also dynamically evolved because $t_{\mathrm{relax}}$ is very short.
+    \end{itemize}
+    \cite{binney2008}
+\end{frame}
+
+\begin{frame}{Dynamical Interpretation}
+    \begin{itemize}
+        \item \textbf{M2}:
+        \begin{itemize}
+            \item Strong mass segregation ($D=0.4$) and high central $\sigma_v$.
+            \item Long history of many relaxation times $\Rightarrow$ dynamically old, partially equipartitioned globular cluster.
+        \end{itemize}
+        \item \textbf{M34}:
+        \begin{itemize}
+            \item Moderate but significant mass segregation.
+            \item Very short $t_{\mathrm{relax}}$ relative to its age $\Rightarrow$ dynamically evolved despite being young in absolute terms.
+        \end{itemize}
+        \item Neither cluster reaches full energy equipartition; simulations predict only \emph{partial} equipartition even for very old clusters.
+        \item Together, M2 and M34 illustrate how cluster mass, density, and age shape the observed degree of mass segregation and internal kinematics.
+    \end{itemize}
+\end{frame}
+
+
 
 
 
 \begin{frame}[fragile]
     \frametitle{References}
     \footnotesize
-    % Assuming a reference.bib file exists in the same directory
-    \bibliography{reference.bib}
+    % Bibliography from reference.bib file
+    \bibliography{reference}
     \bibliographystyle{apalike}
 \end{frame}
 

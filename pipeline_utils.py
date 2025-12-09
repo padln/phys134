@@ -318,58 +318,51 @@ def save_catalog(catalog, filename, format='csv', overwrite=True):
     print(f"✓ Catalog saved to {filename}")
 
 
-def add_artificial_stars(data, positions, magnitudes, fwhm, zeropoint=0.0):
+def add_artificial_stars(data, positions, magnitudes, fwhm=3.5, zeropoint=25.0):
     """
-    Add artificial stars to an image at specified positions and magnitudes.
-    
-    Uses a simple Gaussian PSF model to inject stars into the image.
+    Add artificial stars to an image.
     
     Parameters:
     -----------
-    data : ndarray
-        Image data (2D array) - original data is NOT modified
-    positions : array-like
-        Star positions as (x, y) pairs in pixels, shape (N, 2)
-    magnitudes : array-like
-        Instrumental magnitudes of stars to add (or calibrated if zeropoint given)
+    data : 2D array
+        Image data (will be modified in-place)
+    positions : array (N, 2)
+        (x, y) pixel positions
+    magnitudes : array (N,)
+        Magnitudes of stars to add
     fwhm : float
-        FWHM of PSF in pixels
-    zeropoint : float, optional
-        Photometric zeropoint (default=0 for instrumental magnitudes)
-        If non-zero, magnitudes are treated as calibrated: mag_inst = mag - zeropoint
-    
-    Returns:
-    --------
-    data_modified : ndarray
-        Copy of image with artificial stars added
+        PSF FWHM in pixels
+    zeropoint : float
+        Photometric zeropoint: mag = -2.5*log10(flux) + zp
     """
-    data_modified = data.copy()
+    from photutils.psf import IntegratedGaussianPRF
     
-    # Convert FWHM to Gaussian sigma
-    sigma = fwhm / (2.0 * np.sqrt(2.0 * np.log(2.0)))
-    
-    # Image dimensions
-    ny, nx = data.shape
-    
-    # Grid for PSF evaluation
-    y_grid, x_grid = np.ogrid[0:ny, 0:nx]
+    sigma = fwhm / 2.355  # Gaussian sigma
+    psf_model = IntegratedGaussianPRF(sigma=sigma)
     
     for (x, y), mag in zip(positions, magnitudes):
-        # Convert magnitude to flux
-        # If zeropoint provided, convert calibrated mag to instrumental
-        mag_inst = mag - zeropoint
-        flux = 10**(-0.4 * mag_inst)
+        # Convert magnitude to flux in ADU
+        flux = 10**((zeropoint - mag) / 2.5)  # ← THIS IS CRITICAL
         
-        # Create Gaussian PSF centered at (x, y)
-        psf = np.exp(-((x_grid - x)**2 + (y_grid - y)**2) / (2 * sigma**2))
+        # Create PSF stamp
+        size = int(6 * sigma)
+        y_grid, x_grid = np.mgrid[-size:size+1, -size:size+1]
+        psf = psf_model.evaluate(x_grid, y_grid, flux=flux, x_0=0, y_0=0)
         
-        # Normalize PSF to have total flux = flux
-        psf = psf / np.sum(psf) * flux
+        # Add to image (handle boundaries)
+        x0, y0 = int(x) - size, int(y) - size
+        x1, y1 = x0 + psf.shape[1], y0 + psf.shape[0]
         
-        # Add to image
-        data_modified += psf
+        # Clip to image bounds
+        dx0 = max(0, -x0)
+        dy0 = max(0, -y0)
+        dx1 = psf.shape[1] - max(0, x1 - data.shape[1])
+        dy1 = psf.shape[0] - max(0, y1 - data.shape[0])
+        
+        if dx1 > dx0 and dy1 > dy0:
+            data[max(0, y0):y1, max(0, x0):x1] += psf[dy0:dy1, dx0:dx1]
     
-    return data_modified
+    return data
 
 
 def run_artificial_star_test(data, header, wcs, magnitude_bins, n_stars_per_bin,
@@ -417,7 +410,13 @@ def run_artificial_star_test(data, header, wcs, magnitude_bins, n_stars_per_bin,
         - 'injected_magnitudes': List of injected magnitudes
     """
     if detection_params is None:
-        detection_params = {'threshold': 3.0, 'sharplo': 0.2, 'sharphi': 1.0}
+        detection_params = {
+            'threshold': 3.0,
+            'sharplo': 0.1,    # ← More permissive (was 0.2)
+            'sharphi': 1.5,    # ← More permissive (was 1.0)
+            'roundlo': -1.5,   # ← More permissive
+            'roundhi': 1.5
+}
     
     if photometry_params is None:
         # Use reasonable defaults
@@ -440,13 +439,30 @@ def run_artificial_star_test(data, header, wcs, magnitude_bins, n_stars_per_bin,
     ny, nx = data.shape
     
     # Create buffer zone away from edges
-    border = 50  # pixels
+    border = max(50, int(10 * fwhm))  # 10× FWHM safety margin
+    
+    # Before the magnitude loop, detect real sources once
+    data_sub_real, bkg_real = estimate_background(data)
+    real_sources = detect_sources(data_sub_real, bkg_real, fwhm, threshold=5.0)
     
     for i, mag in enumerate(magnitude_bins):
         # Generate random positions for artificial stars (avoiding edges)
-        x_positions = np.random.uniform(border, nx - border, n_stars_per_bin)
-        y_positions = np.random.uniform(border, ny - border, n_stars_per_bin)
-        positions = np.column_stack([x_positions, y_positions])
+        positions = []
+        for attempt in range(n_stars_per_bin * 10):  # Try up to 10× to find clean positions
+            x_test = np.random.uniform(border, nx - border)
+            y_test = np.random.uniform(border, ny - border)
+            
+            # Check distance to all real sources
+            if real_sources is not None:
+                dx = real_sources['xcentroid'] - x_test
+                dy = real_sources['ycentroid'] - y_test
+                min_dist = np.min(np.sqrt(dx**2 + dy**2))
+                
+                if min_dist > 5 * fwhm:  # Keep 5× FWHM separation
+                    # Position is clean
+                    positions.append([x_test, y_test])
+                    if len(positions) >= n_stars_per_bin:
+                        break
         
         # All stars in this bin have the same magnitude
         magnitudes = np.full(n_stars_per_bin, mag)
