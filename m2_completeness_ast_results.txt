@@ -1,0 +1,16 @@
+# Artificial Star Test Results - M2
+# Image: ./Data/tfn0m419-sq32-20251018-0154-e91.fits
+# Fitted Completeness Model: Error Function
+# m50 = -7.5822 mag
+# sigma_comp = 0.2221 mag
+#
+# Magnitude  N_added  N_recovered  Completeness  Error
+   -16.000      100          100        1.0000   0.0000
+   -15.000      100          100        1.0000   0.0000
+   -14.000      100          100        1.0000   0.0000
+   -13.000      100          100        1.0000   0.0000
+   -12.000      100          100        1.0000   0.0000
+   -11.000      100          100        1.0000   0.0000
+   -10.000      100          100        1.0000   0.0000
+    -9.000      100          100        1.0000   0.0000
+    -8.000      100           97        0.9700   0.0171

@@ -1,0 +1,3 @@
+# Completeness model parameters for M2
+m50 -7.5822
+sigma_comp 0.2221
